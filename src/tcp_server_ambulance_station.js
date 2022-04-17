@@ -1,6 +1,6 @@
 const net = require('net')
 const server = new net.Server()
-const port = 8000
+const port = 8080
 
 server.listen(port, () => {
     console.log(`Server TCP server listening for connection requests on socket localhost:${port}`)
@@ -12,7 +12,7 @@ server.on('connection', (socket) => {
     socket.on('data', (data) => {
         console.log(`Data received: ${data.toString()}`)
 
-        sendMessageToClientEveryEightSeconds(socket)
+        returnMessageToClient(socket)
     })
 
     socket.on('end', () => {
@@ -24,31 +24,8 @@ server.on('connection', (socket) => {
     })
 })
 
-const sendMessageToClientEveryEightSeconds = (socket) => {
-    const bufferMsg = Buffer.from('Are you alive?')
-    const eightSeconds = 8000
+const returnMessageToClient = (socket) => {
+    const bufferMsg = Buffer.from('Entendido! Ambulância já está a caminho.')
 
-    setTimeout(() => {
-        socket.write(bufferMsg)
-    }, eightSeconds);
+    socket.write(bufferMsg)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
