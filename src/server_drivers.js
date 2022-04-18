@@ -25,6 +25,7 @@ server.on('message', async (msg, rinfo) => {
     numberOfCyclists++
 
     if (numberOfCyclists >= 5) {
+        console.log(`Ciclovia com grande movimento de ciclistas.`)
         await sendMessageToServer(8801)
         await sendMessageToServer(8802)
         await sendMessageToServer(8803)

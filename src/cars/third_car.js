@@ -2,7 +2,7 @@ const dgram = require('dgram')
 const server = dgram.createSocket('udp4')
 
 server.bind({
-    address: 'localhost',
+    address: '192.168.5.16',
     port: 8803,
     exclusive: false
 })
@@ -19,8 +19,4 @@ server.on('listening', () => {
 
 server.on('message', (msg, rinfo) => {
     console.log(`Server receive ${msg} from ${rinfo.address}:${rinfo.port}`)
-
-    // const bufferMsg = Buffer.from('Ocorreu um acidente!')
-
-    // server.send(bufferMsg, 0, bufferMsg.length, 8800, 'localhost');
 })
