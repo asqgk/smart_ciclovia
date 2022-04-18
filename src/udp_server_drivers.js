@@ -10,27 +10,31 @@ server.bind({
 })
 
 server.on('error', (err) => {
-    console.log(`Server UDP error:\n${err.stack}`)
+    console.log(`Server error:\n${err.stack}`)
     server.close()
 })
 
 server.on('listening', () => {
     const address = server.address()
-    console.log(`Server UDP listening ${address.address}:${address.port}`)
+    console.log(`Server listening ${address.address}:${address.port}`)
 })
 
-server.on('message', (msg, rinfo) => {
-    console.log(`Server UDP receive ${msg} from ${rinfo.address}:${rinfo.port}`)
+server.on('message', async (msg, rinfo) => {
+    console.log(`Server receive: ${msg} from ${rinfo.address}:${rinfo.port}`)
+
+    numberOfCyclists++
 
     if (numberOfCyclists >= 5) {
-        // const bufferMsg = Buffer.from('Ciclovia está com bastante movimento')
-
-        console.log('Ciclovia está com bastante movimento');
-
-        // server.send(bufferMsg, 0, message.length, 8000, 'localhost');
+        await sendMessageToServer(8801)
+        await sendMessageToServer(8802)
+        await sendMessageToServer(8803)
 
         numberOfCyclists = 0
     }
-
-    numberOfCyclists++
 })
+
+const sendMessageToServer = async (port) => {
+    const bufferMsg = Buffer.from('Ciclovia está com bastante movimento')
+
+    server.send(bufferMsg, 0, bufferMsg.length, port, 'localhost');
+}
