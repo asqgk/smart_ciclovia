@@ -20,7 +20,7 @@ server.on('listening', () => {
 server.on('message', (msg, rinfo) => {
     console.log(`Server receive ${msg} from ${rinfo.address}:${rinfo.port}`)
 
-    // const bufferMsg = Buffer.from('Third Car: OK!')
+    // const bufferMsg = Buffer.from('Ocorreu um acidente!')
 
     // server.send(bufferMsg, 0, bufferMsg.length, 8800, 'localhost');
 })
